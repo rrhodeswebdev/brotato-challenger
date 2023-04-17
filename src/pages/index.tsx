@@ -27,25 +27,41 @@ export default function Home() {
 		setError(null);
 		setChallenge(false);
 
-		const character = generateRandomCharacter();
+		const randomCharacter = generateRandomCharacter();
+		const randomWeapon =
+			randomCharacter.startingWeapons.length > 0
+				? generateRandomWeapon(
+						randomCharacter.startingWeapons as number[]
+				  )
+				: 'No starting weapon';
+		const randomScenario = generateRandomScenario();
 
-		if (character) {
-			setCharacter(character);
-
-			if (character.startingWeapons.length > 0) {
-				setWeapon(
-					generateRandomWeapon(character.startingWeapons as number[])
-				);
-			} else {
-				setWeapon('No starting weapon');
-			}
-
-			setScenario(generateRandomScenario());
+		const promises = Promise.all([
+			randomCharacter,
+			randomWeapon,
+			randomScenario,
+		]);
+		if (randomCharacter) {
+			setCharacter(randomCharacter);
 		}
 
-		if (!character && !weapon) return setError('Something went wrong!');
+		// if (randomCharacter.startingWeapons.length > 0) {
+		// 	const randomWeapon = generateRandomWeapon(
+		// 		randomCharacter.startingWeapons as number[]
+		// 	);
+		//
+		// 	setWeapon(randomWeapon);
+		// } else {
+		// 	setWeapon('No starting weapon');
+		// }
 
-		character && weapon && setChallenge(true);
+		if (!character && !weapon) {
+			return setError('Something went wrong! Please try again.');
+		}
+
+		setScenario(randomScenario);
+
+		character && weapon && scenario && setChallenge(true);
 	};
 
 	return (

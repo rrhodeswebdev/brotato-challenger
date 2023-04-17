@@ -418,15 +418,7 @@
   "scenarios": [
     {
       "id": 1,
-      "description": "Can only use white weapons"
-    },
-    {
-      "id": 2,
-      "description": "Cannot use above blue level weapons"
-    },
-    {
-      "id": 3,
-      "description": "Can only use initial weapon category for all weapons"
+      "description": "Can only use starting weapon"
     }
   ]
 }
